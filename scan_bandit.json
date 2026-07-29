@@ -1,0 +1,14 @@
+{
+  "results": [
+    {
+      "issue_text": "Possível senha exposta no código.",
+      "issue_severity": "HIGH",
+      "line_number": 42
+    },
+    {
+      "issue_text": "Uso de função de criptografia fraca (MD5).",
+      "issue_severity": "MEDIUM",
+      "line_number": 15
+    }
+  ]
+}
