@@ -1,1 +1,18 @@
 .env
+# Python / Cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Bancos de dados locais
+*.db
+*.sqlite3
+
+# Arquivos temporários de scan e relatórios gerados
+*.json
+*.pdf
+alvo_teste.py
+alvo_requirements.txt
+
+# Ambiente virtual e chaves
+venv/
