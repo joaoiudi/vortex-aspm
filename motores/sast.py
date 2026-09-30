@@ -1,74 +1,36 @@
 import json
-import re
+from ia.gemini import analisar_codigo_autonomo
 
-def executar_sast(caminho_arquivo: str = "alvo_teste.py") -> dict:
-    """
-    Motor SAST nativo em Python para análise estática de código e detecção de padrões inseguros,
-    totalmente compatível com qualquer versão do Python sem conflitos de plugins.
-    """
+def executar_sast(caminho_arquivo: str) -> dict:
     try:
         with open(caminho_arquivo, "r", encoding="utf-8") as f:
-            linhas = f.readlines()
+            codigo_fonte = f.read()
             
-        falhas_encontradas = []
+        if not codigo_fonte.strip():
+            return {"status": "sucesso", "mensagem": "✅ O arquivo está vazio."}
+
+        resposta_ia = analisar_codigo_autonomo(codigo_fonte)
         
-        # Regras de análise estática de código (padrões perigosos comuns)
-        regras_inseguras = [
-            {
-                "padrao": r"\bexec\s*\(",
-                "texto": "Uso da função 'exec()', permitindo a execução arbitrária de código dinâmico.",
-                "severidade": "ALTO",
-                "teste_id": "B102"
-            },
-            {
-                "padrao": r"\beval\s*\(",
-                "texto": "Uso da função 'eval()', vulnerável a injeção de código.",
-                "severidade": "ALTO",
-                "teste_id": "B307"
-            },
-            {
-                "padrao": r"subprocess\..*shell\s*=\s*True",
-                "texto": "Uso de subprocesso com 'shell=True', vulnerável a Command Injection.",
-                "severidade": "ALTO",
-                "teste_id": "B602"
-            },
-            {
-                "padrao": r"\bpickle\.load",
-                "texto": "Desserialização insegura utilizando 'pickle', passível de execução remota de código.",
-                "severidade": "MÉDIO",
-                "teste_id": "B301"
-            },
-            {
-                "padrao": r"MD5|SHA1",
-                "texto": "Uso de algoritmo de hash criptográfico obsoleto ou inseguro.",
-                "severidade": "BAIXO",
-                "teste_id": "B303"
-            }
-        ]
-
-        for num_linha, linha_texto in enumerate(linhas, start=1):
-            for regra in regras_inseguras:
-                if re.search(regra["padrao"], linha_texto):
-                    falhas_encontradas.append({
-                        "issue_text": regra["texto"],
-                        "issue_severity": regra["severidade"],
-                        "line_number": num_linha,
-                        "test_id": regra["teste_id"]
-                    })
-
-        if not falhas_encontradas:
-            return {"status": "sucesso", "mensagem": "✅ Nenhuma vulnerabilidade estrutural encontrada!"}
+        resposta_str = str(resposta_ia)
+        if "```json" in resposta_str:
+            resposta_str = resposta_str.split("```json")[1].split("```")[0]
+        elif "```" in resposta_str:
+            resposta_str = resposta_str.split("```")[1].split("```")[0]
             
-        falha_principal = falhas_encontradas[0]
+        dados_analise = json.loads(resposta_str.strip())
         
+        if dados_analise.get("status") == "erro" or "erro" in dados_analise:
+            return {"status": "erro", "mensagem": dados_analise.get("mensagem", "Erro na análise via IA.")}
+        
+        if dados_analise.get("total_falhas", 0) == 0:
+            return {"status": "sucesso", "mensagem": "✅ Nenhuma vulnerabilidade encontrada pela análise autônoma!"}
+            
         return {
             "status": "vulneravel",
-            "total_falhas": len(falhas_encontradas),
-            "severidade": falha_principal["issue_severity"],
-            "detalhe_falha": falha_principal["issue_text"],
-            "linha": falha_principal["line_number"],
-            "teste_id": falha_principal["test_id"]
+            "total_falhas": dados_analise["total_falhas"],
+            "severidade": dados_analise.get("severidade_maxima", "ALTO"),
+            "detalhes_lista": dados_analise["detalhes_lista"]
         }
         
     except Exception as erro:
-        return {"status": "erro", "mensagem": f"Erro interno no motor SAST: {str(erro)}"}
+        return {"status": "erro", "mensagem": f"Erro interno durante a execução do motor SAST: {str(erro)}"}

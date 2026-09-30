@@ -2,13 +2,18 @@ import subprocess
 import sys
 import json
 
+TIMEOUT_SEGUNDOS = 60
+
 def executar_sca(caminho_arquivo: str = "alvo_requirements.txt") -> dict:
     """
     Executa o pip-audit no arquivo de dependências e retorna os dados brutos estruturados.
     """
     try:
-        comando = [sys.executable, "-m", "pip_audit", "-r", caminho_arquivo, "-f", "json"]
-        processo = subprocess.run(comando, capture_output=True, text=True)
+        comando = [sys.executable, "-m", "pip_audit", "-r", caminho_arquivo, "-f", "json", "--vulnerability-service", "osv"]
+        try:
+            processo = subprocess.run(comando, capture_output=True, text=True, timeout=TIMEOUT_SEGUNDOS)
+        except subprocess.TimeoutExpired:
+            return {"status": "erro", "mensagem": f"O motor SCA excedeu {TIMEOUT_SEGUNDOS}s (possível falha de rede na consulta de vulnerabilidades). Tente novamente."}
         
         if not processo.stdout.strip():
             if processo.stderr.strip():

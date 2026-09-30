@@ -1,6 +1,9 @@
 .env
+
 # Python / Cache
 __pycache__/
+*/__pycache__/
+**/*.pyc
 *.py[cod]
 *$py.class
 
@@ -9,10 +12,10 @@ __pycache__/
 *.sqlite3
 
 # Arquivos temporários de scan e relatórios gerados
-*.json
 *.pdf
 alvo_teste.py
 alvo_requirements.txt
 
 # Ambiente virtual e chaves
 venv/
+.venv/

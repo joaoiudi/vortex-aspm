@@ -1,1 +1,11 @@
-requests==2.19.1
+fastapi
+uvicorn
+streamlit
+google-genai
+python-dotenv
+fpdf2
+bandit
+streamlit-autorefresh
+watchdog
+requests
+pip-audit
