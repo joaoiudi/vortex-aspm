@@ -1,10 +1,10 @@
-# 🛡️ Vortex ASPM (Application Security Posture Management)
+# Vortex ASPM (Application Security Posture Management)
 
 Plataforma corporativa de **Gestão de Postura de Segurança de Aplicações (ASPM)** com multimotores de análise e inteligência artificial generativa (Google Gemini) integrada para remediação automatizada de vulnerabilidades.
 
 ---
 
-## 🏗️ Arquitetura e Tecnologias
+## Arquitetura e Tecnologias
 
 | Camada | Tecnologia | Descrição |
 |---|---|---|
@@ -17,7 +17,7 @@ Plataforma corporativa de **Gestão de Postura de Segurança de Aplicações (AS
 
 ---
 
-## 🔍 Motores de Segurança Implementados
+## Motores de Segurança Implementados
 
 A plataforma avalia a superfície de ataque em múltiplas camadas fundamentais:
 
@@ -29,7 +29,7 @@ A plataforma avalia a superfície de ataque em múltiplas camadas fundamentais:
 
 ---
 
-## ⚙️ Configuração do Ambiente
+## Configuração do Ambiente
 
 ### 1. Clonar o Repositório
 ```bash
@@ -60,7 +60,7 @@ python listar_modelos.py
 
 ---
 
-## 🚀 Como Executar o Projeto
+## Como Executar o Projeto
 
 ### Opção 1: Via Docker Compose (Recomendado)
 
@@ -100,19 +100,19 @@ docker-compose down
 
 ---
 
-## 📖 Guia Prático de Uso da Plataforma
+## Guia Prático de Uso da Plataforma
 
 Após iniciar a aplicação e acessar o Dashboard em **[http://localhost:8501](http://localhost:8501)**, você terá à disposição 3 abas operacionais padrão SOC:
 
 ---
 
-### 1. 🔍 Análise de Código: Varredura Única (SAST + Secrets)
+### 1. Análise de Código: Varredura Única (SAST + Secrets)
 Identifica falhas estruturais de programação (SQL Injection, Command Injection, RCE via `eval()`, Path Traversal, Pickle inseguro, MD5 fraco) e credenciais hardcoded (chaves AWS, JWT, senhas expostas).
 
-1. Acesse a aba **`🔍 Código (SAST/Secrets)`**.
+1. Acesse a aba **` Código (SAST/Secrets)`**.
 2. Clique no campo de upload e envie um arquivo Python (`.py`).
-   > 💡 **Dica de teste:** Você pode criar um arquivo Python de teste (ex: `teste_vulneravel.py`) contendo falhas propositais (como `eval()`, queries SQL concatenadas ou credenciais expostas) para avaliar a resposta dos motores.
-3. Clique no botão **`🚀 Executar Varredura Única`**.
+   >  **Dica de teste:** Você pode criar um arquivo Python de teste (ex: `teste_vulneravel.py`) contendo falhas propositais (como `eval()`, queries SQL concatenadas ou credenciais expostas) para avaliar a resposta dos motores.
+3. Clique no botão **` Executar Varredura Única`**.
 4. O painel exibirá o progresso em tempo real enquanto a IA analisa o código e sintetiza as correções.
 5. Ao concluir, você verá:
    * **Cartões de Métricas:** Total de falhas, risco máximo e arquivo analisado.
@@ -122,53 +122,53 @@ Identifica falhas estruturais de programação (SQL Injection, Command Injection
 
 ---
 
-### 2. 👁️ Monitoramento Contínuo em Tempo Real (Watchdog)
+### 2. Monitoramento Contínuo em Tempo Real (Watchdog)
 Modo autônomo onde o Vortex vigia alterações no código em segundo plano e executa a reanálise automaticamente toda vez que o arquivo for salvo.
 
-1. Na aba **`🔍 Código (SAST/Secrets)`**, faça o upload do arquivo que deseja vigiar.
-2. Clique no botão **`👁️ Ativar Monitoramento Contínuo`**.
-3. O status mudará para verde: `🟢 Monitoramento Contínuo Ativo`.
+1. Na aba **` Código (SAST/Secrets)`**, faça o upload do arquivo que deseja vigiar.
+2. Clique no botão **` Ativar Monitoramento Contínuo`**.
+3. O status mudará para verde: ` Monitoramento Contínuo Ativo`.
 4. Abra o arquivo no seu editor de código (ex: VS Code) e faça uma modificação ou corrija uma falha.
 5. Ao salvar o arquivo (`Ctrl + S`), o guardião do Vortex detecta o evento do sistema operacional, executa os motores de segurança e atualiza o histórico do dashboard automaticamente, sem necessidade de cliques manuais.
-6. Para encerrar a vigilância, clique em **`⏹️ Parar Monitoramento`**.
+6. Para encerrar a vigilância, clique em **` Parar Monitoramento`**.
 
 ---
 
-### 3. 📦 Auditoria de Dependências (SCA)
+### 3. Auditoria de Dependências (SCA)
 Cruza as bibliotecas declaradas no projeto contra bancos globais de vulnerabilidades conhecidas (CVEs / OSV) via `pip-audit`.
 
-1. Acesse a aba **`📦 Dependências (SCA)`**.
+1. Acesse a aba **` Dependências (SCA)`**.
 2. Faça o upload do arquivo `requirements.txt` da aplicação.
-   > 💡 **Exemplo de teste vulnerável:** Um arquivo contendo dependências desatualizadas:
+   > **Exemplo de teste vulnerável:** Um arquivo contendo dependências desatualizadas:
    > ```text
    > flask==0.12
    > requests==2.6.0
    > ```
-3. Clique em **`📦 Executar Varredura SCA`**.
+3. Clique em **` Executar Varredura SCA`**.
 4. Acompanhe a esteira de auditoria. O Vortex listará as CVEs identificadas, versões afetadas e a IA gerará as instruções de atualização e mitigações recomendadas.
 
 ---
 
-### 4. 🌐 Varredura Dinâmica em Tempo de Execução (DAST)
+### 4. Varredura Dinâmica em Tempo de Execução (DAST)
 Avalia a segurança da aplicação ativa sob a perspectiva de um atacante externo via requisições HTTP reais.
 
-1. Acesse a aba **`🌐 Dinâmico (DAST)`**.
+1. Acesse a aba **` Dinâmico (DAST)`**.
 2. No campo **URL do alvo**, informe o endereço da aplicação em execução:
    * **Execução via Docker:** `http://backend:8000` (testa a própria API do Vortex pela rede interna).
    * **Execução local:** `http://localhost:8000` (ou qualquer serviço web HTTP que você deseje auditar).
-3. Clique em **`🎯 Executar Varredura DAST`**.
+3. Clique em **` Executar Varredura DAST`**.
 4. O motor inspecionará ausência de cabeçalhos de segurança (CSP, HSTS, X-Content-Type-Options), flags inseguras em cookies (`HttpOnly`, `Secure`) e vazamento de versão.
 5. O painel calculará o **Score de Risco Agregado (0 a 100)** e exibirá as diretrizes de hardening geradas pela IA.
 
 ---
 
-### 5. 📈 Gestão de Postura e Histórico Global
+### 5. Gestão de Postura e Histórico Global
 No rodapé do dashboard, a seção **Gestão de Postura** consolida todos os scans realizados:
 * **Gráfico de Evolução:** Visualização temporal do total de vulnerabilidades ao longo dos scans.
 * **Distribuição de Origem:** Gráfico comparativo entre varreduras Manuais, Monitoramento Contínuo, SCA e DAST.
 * **Tabela de Auditoria:** Histórico completo de eventos para conformidade e rastreabilidade.
 
-## 👥 Equipe de Desenvolvimento
+## Equipe de Desenvolvimento
 
 Projeto desenvolvido para o challenge da **PRIDE Security** para o curso de **Defesa Cibernética**:
 
