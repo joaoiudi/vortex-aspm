@@ -170,7 +170,7 @@ No rodapé do dashboard, a seção **Gestão de Postura** consolida todos os sca
 
 ## 👥 Equipe de Desenvolvimento
 
-Projeto desenvolvido para o challenge da **PRIDE** para o curso de **Defesa Cibernética**:
+Projeto desenvolvido para o challenge da **PRIDE Security** para o curso de **Defesa Cibernética**:
 
 * **João Iudi Oliveira de Souza**
 * **Gabriel de Oliveira Gomes**
