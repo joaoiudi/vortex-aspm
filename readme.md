@@ -126,6 +126,7 @@ Identifica falhas estruturais de programação (SQL Injection, Command Injection
 Modo autônomo onde o Vortex vigia alterações no código em segundo plano e executa a reanálise automaticamente toda vez que o arquivo for salvo.
 
 1. Na aba **` Código (SAST/Secrets)`**, faça o upload do arquivo que deseja vigiar.
+   > ⚠️ **Requisito:** O arquivo a ser monitorado **deve estar localizado dentro da pasta `workspace/`** do projeto. O motor de monitoramento contínuo observa exclusivamente esse diretório. Arquivos fora dele não serão detectados.
 2. Clique no botão **` Ativar Monitoramento Contínuo`**.
 3. O status mudará para verde: ` Monitoramento Contínuo Ativo`.
 4. Abra o arquivo no seu editor de código (ex: VS Code) e faça uma modificação ou corrija uma falha.
@@ -174,3 +175,6 @@ Projeto desenvolvido para o challenge da **PRIDE Security** para o curso de **De
 
 * **João Iudi Oliveira de Souza**
 * **Gabriel de Oliveira Gomes**
+
+## Licença
+Este projeto é licenciado sob a GNU General Public License v3.0. Veja o arquivo [LICENSE.md](LICENSE.md).
