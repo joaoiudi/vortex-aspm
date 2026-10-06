@@ -4,7 +4,6 @@ streamlit
 google-genai
 python-dotenv
 fpdf2
-bandit
 streamlit-autorefresh
 watchdog
 requests
