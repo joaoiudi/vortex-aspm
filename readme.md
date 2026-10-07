@@ -173,8 +173,8 @@ No rodapé do dashboard, a seção **Gestão de Postura** consolida todos os sca
 
 Projeto desenvolvido para o challenge da **PRIDE Security** para o curso de **Defesa Cibernética**:
 
-* **João Iudi Oliveira de Souza**
-* **Gabriel de Oliveira Gomes**
+* **João Iudi Oliveira de Souza** — RM: 573667
+* **Gabriel de Oliveira Gomes** — RM: 569695
 
 ## Licença
 Este projeto é licenciado sob a GNU General Public License v3.0. Veja o arquivo [LICENSE.md](LICENSE.md).
